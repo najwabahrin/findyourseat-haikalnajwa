@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Find Your Seat — Haikal &amp; Najwa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ── Reset & Base ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;scroll-behavior:smooth}
+
+:root{
+  --sage:#66C2A5;
+  --sage-dark:#4DAF91;
+  --sage-light:#99D6BF;
+  --sage-mist:#D4F0E8;
+  --champagne:#F7EAD0;
+  --champagne-light:#FDF7ED;
+  --champagne-dark:#D4C4A8;
+  --cream:#FFFAF3;
+  --ink:#2C2C2C;
+  --ink-soft:#5A5A5A;
+  --ink-muted:#8A8A8A;
+  --gold:#C4A962;
+  --gold-light:#E8D9A8;
+  --white:#FFFFFF
+  --shadow:0 4px 24px rgba(44,44,44,0.08);
+  --radius:12px;
+  --radius-sm:8px;
+
+  /* Burgundy / Rose Primary Accents */
+  --burgundy: #800020;
+  --burgundy-dark: #5C0017;
+  --burgundy-light: #A33853;
+  --burgundy-mist: #F7EBEF;
+
+  /* Warm Cream / Blush Secondary Accents */
+  --champagne: #F5E6E8;
+  --champagne-light: #FAF2F3;
+  --champagne-dark: #D8C2C5;
+  --cream: #FFFDFD;
+
+  /* Neutral Text & Ink Hierarchy */
+  --ink: #2B1E21;
+  --ink-soft: #5C4D50;
+  --ink-muted: #8C7C80;
+
+  /* Accent Highlights */
+  --gold: #C4A962;
+  --gold-light: #E8D9A8;
+}
+
+body{
+  font-family:'Cormorant Garamond','Noto Sans SC',Georgia,serif;
+  background:var(--cream);
+  color:var(--ink);
+  min-height:100vh;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── Header ── */
+header{
+  background:linear-gradient(135deg,var(--burgundy)0%,var(--burgundy-dark)100%);
+  color:var(--champagne);text-align:center;
+  padding:1.75rem 1.25rem 1.5rem;position:relative;overflow:hidden
+}
+header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,var(--gold-light),var(--gold),var(--champagne),var(--gold),var(--gold-light));
+  opacity:.6
+}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;max-width:720px;margin:0 auto}
+header h1{
+  font-family:'Playfair Display',serif;
+  font-weight:600;font-size:1.8rem;letter-spacing:.06em;margin-bottom:.15rem
+}
+header .subtitle{
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-weight:400;font-size:.95rem;opacity:.85;letter-spacing:.04em
+}
+header .couple{
+  font-size:1.05rem;margin-top:.4rem;opacity:.9;letter-spacing:.08em
+}
+header .guest-count{
+  display:inline-block;margin-top:.6rem;padding:.25rem 1.1rem;
+  background:rgba(255,255,255,.15);border-radius:20px;
+  font-size:.85rem;font-style:italic;letter-spacing:.04em
+}
+
+/* ── Language toggle ── */
+.lang-toggle{
+  display:flex;gap:2px;background:rgba(255,255,255,.12);border-radius:6px;padding:2px;flex-shrink:0
+}
+.lang-btn{
+  background:transparent;border:none;color:rgba(255,255,255,.5);font-family:'Noto Sans SC',sans-serif;
+  font-size:.8rem;font-weight:500;padding:6px 12px;border-radius:4px;cursor:pointer;transition:all .2s;letter-spacing:.03em
+}
+.lang-btn.active{background:rgba(255,255,255,.85);color:var(--burgundy-dark);font-weight:600}
+
+/* ── Venue banner ── */
+.venue-banner{
+  background:var(--cream);border-bottom:1px solid var(--champagne-dark);
+  padding:.65rem 1rem;text-align:center
+}
+.venue-line{font-size:.82rem;color:var(--ink-soft)}
+.venue-line:first-child{font-weight:600;color:var(--burgundy-dark);font-size:.95rem;letter-spacing:.03em}
+.venue-line + .venue-line{margin-top:3px}
+
+/* ── Countdown ── */
+.countdown-bar{
+  background:var(--burgundy-mist);padding:.5rem 1rem;text-align:center;
+  border-radius:var(--radius);margin-bottom:.75rem
+}
+.countdown-bar .cd-label{font-size:.85rem;color:var(--ink-muted);font-style:italic;letter-spacing:.04em}
+.countdown-bar .cd-digits{
+  font-family:'Playfair Display',serif;font-weight:600;font-size:.95rem;color:var(--burgundy-dark);letter-spacing:.06em;
+  margin-top:1px
+}
+.countdown-bar .cd-digits .cd-num{display:inline-block;min-width:1.8em}
+.countdown-bar .cd-digits .cd-sep{opacity:.4;margin:0 2px}
+
+/* ── Search ── */
+.search-section{
+  max-width:640px;margin:0 auto;padding:0 1.25rem
+}
+.search-wrapper{
+  background:var(--champagne);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:.25rem 1rem;
+  display:flex;align-items:center;gap:.5rem;
+  border:2px solid transparent;transition:border-color .3s,box-shadow .3s
+}
+.search-wrapper:focus-within{
+  border-color:var(--burgundy);
+  box-shadow:0 4px 28px rgba(123,143,110,.15)
+}
+.search-wrapper .icon{font-size:1.25rem;opacity:.5;flex-shrink:0}
+.search-wrapper input{
+  flex:1;border:none;outline:none;padding:.85rem 0;
+  font-family:'Cormorant Garamond',serif;font-size:1.15rem;
+  color:var(--ink);background:transparent
+}
+.search-wrapper input::placeholder{
+  color:var(--ink-muted);font-style:italic;letter-spacing:.03em
+}
+.search-wrapper .clear-btn{
+  background:none;border:none;font-size:1.1rem;opacity:0;
+  cursor:pointer;transition:opacity .2s;padding:.25rem;color:var(--ink-soft)
+}
+.search-wrapper .clear-btn.visible{opacity:.5}
+.search-wrapper .clear-btn.visible:hover{opacity:.8}
+
+/* ── Generic term tooltip ── */
+.generic-tip{
+  background:var(--champagne);border:1px solid var(--gold-light);
+  border-radius:var(--radius);padding:1rem 1.25rem;margin-top:.75rem;
+  text-align:center;animation:fadeIn .35s ease
+}
+.generic-tip .tip-icon{font-size:1.5rem;margin-bottom:.25rem}
+.generic-tip p{font-size:1rem;color:var(--ink-soft);margin-bottom:.3rem}
+.generic-tip .tip-sub{font-style:italic;font-size:.9rem;color:var(--ink-muted)}
+
+/* ── Container ── */
+.container{max-width:720px;margin:1.25rem auto;padding:0 1.25rem 3rem}
+
+/* ── Initial state ── */
+.initial-state{
+  text-align:center;padding:2.5rem 1rem 1.5rem;animation:fadeIn .5s ease
+}
+.initial-state .deco-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.6}
+.initial-state h2{
+  font-family:'Playfair Display',serif;font-weight:500;
+  font-size:1.3rem;color:var(--ink-soft);margin-bottom:.35rem
+}
+.initial-state p{color:var(--ink-muted);font-style:italic;font-size:.95rem}
+
+/* ── View All Tables button ── */
+.view-all-btn-wrap{text-align:center;margin:1rem 0 .5rem}
+.view-all-btn{
+  background:var(--white);border:1.5px solid var(--burgundy-light);color:var(--burgundy-dark);
+  font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;letter-spacing:.05em;
+  padding:.6rem 2rem;border-radius:25px;cursor:pointer;transition:all .25s;
+  box-shadow:var(--shadow)
+}
+.view-all-btn:hover{background:var(--sage-mist);border-color:var(--sage)}
+.view-all-btn:active{transform:scale(.97)}
+
+/* ── All Tables view ── */
+.all-tables-view{display:none;animation:fadeIn .35s ease;margin-top:.5rem;margin-bottom:1.25rem}
+.all-tables-view.open{display:block}
+.all-tables-list{display:flex;flex-direction:column;gap:.4rem}
+.all-tables-group{
+  background:var(--white);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);border:1px solid var(--champagne)
+}
+.all-tables-header{
+  background:linear-gradient(135deg,var(--burgundy-mist),var(--champagne-light));
+  padding:.7rem 1rem;display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;transition:background .2s;user-select:none
+}
+.all-tables-header:hover{background:var(--burgundy-mist)}
+.all-tables-header .at-label{font-weight:600;font-size:1.05rem;color:var(--burgundy-dark);letter-spacing:.04em}
+.all-tables-header .at-count{font-size:.8rem;color:var(--ink-muted);font-style:italic}
+.all-tables-header .at-arrow{font-size:.75rem;color:var(--ink-muted);transition:transform .25s}
+.all-tables-header.open .at-arrow{transform:rotate(180deg)}
+.all-tables-body{display:none;padding:.5rem 1rem .75rem}
+.all-tables-body.open{display:block}
+.all-tables-guest{
+  display:flex;align-items:center;gap:.6rem;padding:.35rem 0;
+  font-size:.95rem;border-bottom:1px solid var(--champagne)
+}
+.all-tables-guest:last-child{border-bottom:none}
+.all-tables-guest .at-num{
+  width:22px;height:22px;border-radius:50%;background:var(--burgundy-mist);
+  color:var(--burgundy-dark);display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:600;flex-shrink:0
+}
+
+/* ── Guest list ── */
+.guest-list{
+  display:flex;flex-direction:column;gap:.5rem;animation:fadeIn .35s ease
+}
+.guest-card{
+  background:var(--white);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:.85rem 1.1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  transition:transform .2s,box-shadow .2s,border-color .2s;
+  border:1px solid transparent
+}
+.guest-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(44,44,44,.1);
+  border-color:var(--burgundy-light)
+}
+.guest-card:active{transform:translateY(0)}
+.guest-card .guest-name{
+  font-size:1.1rem;font-weight:600;color:var(--ink);letter-spacing:.02em;
+  display:flex;align-items:center;gap:.35rem;flex-wrap:wrap
+}
+.guest-card .table-badge{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.25rem .65rem;border-radius:20px;
+  background:var(--burgundy-mist);color:var(--burgundy-dark);
+  font-size:.82rem;font-weight:500;letter-spacing:.04em;white-space:nowrap;flex-shrink:0
+}
+
+/* ── Table preview (inline, below search results) ── */
+.table-preview{
+  background:var(--champagne-light);border:1px solid var(--gold-light);
+  border-radius:var(--radius);padding:.85rem 1rem;margin-top:.4rem;animation:fadeIn .3s ease
+}
+.table-preview .tp-title{
+  font-family:'Playfair Display',serif;font-weight:600;font-size:1rem;
+  color:var(--burgundy-dark);margin-bottom:.35rem;display:flex;align-items:center;gap:.5rem
+}
+.table-preview .tp-guest{
+  display:flex;align-items:center;gap:.5rem;padding:.2rem 0;
+  font-size:.92rem;border-bottom:1px solid rgba(196,169,98,.2)
+}
+.table-preview .tp-guest:last-child{border-bottom:none}
+.table-preview .tp-num{
+  width:20px;height:20px;border-radius:50%;background:var(--burgundy-mist);
+  color:var(--burgundy-dark);display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;font-weight:600;flex-shrink:0
+}
+.table-preview .tp-click{
+  margin-top:.5rem;text-align:right;font-size:.8rem;color:var(--burgundy);
+  cursor:pointer;font-style:italic;transition:color .2s
+}
+.table-preview .tp-click:hover{color:var(--burgundy-dark)}
+
+/* ── No results ── */
+.no-results{
+  text-align:center;padding:2.5rem 1rem;animation:fadeIn .4s ease
+}
+.no-results .sad-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.5}
+.no-results h3{
+  font-family:'Playfair Display',serif;font-weight:500;
+  color:var(--ink-soft);margin-bottom:.5rem;font-size:1.2rem
+}
+.no-results p{color:var(--ink-muted);font-size:.95rem;margin-bottom:.3rem}
+.no-results .tips{margin-top:.75rem;font-size:.85rem;color:var(--ink-muted);line-height:1.8}
+
+/* ── Modal ── */
+/* ── Modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 12, 0.65); /* Darker backdrop blur */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  animation: fadeIn .25s ease;
+  overflow-y: auto;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+
+.modal {
+  background: #2b1e21 !important; /* Solid dark background so floorplan won't bleed through */
+  color: #ffffff !important;
+  border-radius: var(--radius);
+  max-width: 540px;
+  width: 100%;
+  margin: auto;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  animation: slideUp .35s ease;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-dark) 100%);
+  color: #ffffff !important;
+  padding: 1.5rem 1.5rem 1.25rem;
+  position: relative;
+}
+
+.modal-header .close-btn {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  background: rgba(255, 255, 255, .15);
+  border: none;
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+.modal-header .close-btn:hover { background: rgba(255, 255, 255, .3); }
+
+.modal-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: .04em;
+  padding-right: 1rem;
+  color: #ffffff !important;
+}
+
+.modal-header .table-subtitle {
+  font-size: .9rem;
+  opacity: .9;
+  margin-top: .2rem;
+  font-style: italic;
+  color: #ffffff !important;
+}
+
+.modal-body {
+  background: #2b1e21 !important;
+  padding: 1.25rem 1.5rem 1.5rem;
+  color: #ffffff !important;
+}
+
+/* ── Round table ── */
+.table-visual{display:flex;justify-content:center;margin-bottom:1.25rem}
+.round-table{
+  position:relative;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,var(--champagne-light),var(--champagne)60%,var(--champagne-dark)100%);
+  border:3px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(196,169,98,.2),inset 0 -4px 12px rgba(0,0,0,.04)
+}
+.round-table .table-label{text-align:center;font-family:'Playfair Display',serif;font-weight:600;letter-spacing:.04em}
+.round-table .table-label .tile-name{font-size:1.3rem;color:var(--burgundy-dark)}
+.round-table .table-label .tile-cap{font-size:.8rem;color:var(--ink-muted);margin-top:.15rem;font-style:italic}
+.seat-marker {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--burgundy-light);
+  border: 2px solid var(--white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  top: 50%;
+  left: 50%;
+  /* Centers on origin, rotates around circle, pushes outward to edge */
+  transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-70px);
+}
+.seat-marker.filled {
+  background: var(--burgundy);
+}
+
+@media(max-width:480px){
+  .seat-marker {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-55px);
+  }
+}
+@media(max-width:380px){
+  .seat-marker {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-48px);
+  }
+}
+
+/* ── Table guest list ── */
+.table-guest-list {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+
+.table-guest-item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .55rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 1rem;
+}
+
+.table-guest-item:last-child {
+  border-bottom: none;
+}
+
+.table-guest-item .seat-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .8rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Force guest names and any child spans to pure white */
+.table-guest-item .guest-name,
+.table-guest-item span {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+/* Bottom counter badge */
+.table-count {
+  margin-top: .75rem;
+  padding: .65rem;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-style: italic;
+  font-size: .85rem;
+  color: #ffffff !important;
+  letter-spacing: .03em;
+}
+
+/* ── Mini Floor Plan ── */
+.mini-floorplan {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--champagne-dark);
+  animation: fadeIn 0.4s ease;
+}
+.mini-floorplan .mfp-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--burgundy-dark);
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
+.mfp-viewport {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  aspect-ratio: 800 / 1100;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1.5px solid var(--champagne-dark);
+  background: #FFFDFD;
+}
+.mfp-canvas-scaler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 1100px;
+  transform-origin: top left;
+}
+.mfp-canvas-scaler .venue-landmark {
+  position: absolute;
+  background: #faedcd;
+  border: 1px dashed #d4a373;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #7a5c3e;
+  text-align: center;
+  border-radius: 4px;
+}
+.mfp-canvas-scaler .stage {
+  top: 20px; left: 80px; width: 640px; height: 60px;
+  background: #f7d6b5; border-radius: 8px; font-size: 1.25rem;
+}
+.mfp-canvas-scaler .main-table {
+  top: 150px; left: 100px; width: 140px; height: 50px;
+  background: #e9c46a; border: 2px solid #d4a373;
+}
+.mfp-canvas-scaler .buffet-line { top: 180px; right: 20px; width: 50px; height: 250px; writing-mode: vertical-rl; }
+.mfp-canvas-scaler .surau-tandas { top: 500px; right: 20px; width: 50px; height: 180px; writing-mode: vertical-rl; }
+.mfp-canvas-scaler .lounge-area  { bottom: 100px; right: 20px; width: 50px; height: 200px; writing-mode: vertical-rl; }
+.mfp-canvas-scaler .entrance    { bottom: 0; left: 285px; width: 100px; height: 40px; background: #e76f51; color: #fff; border-radius: 4px 4px 0 0; }
+.mfp-canvas-scaler .pa-system   { bottom: 20px; left: 40px; width: 100px; height: 30px; }
+
+.mfp-canvas-scaler .walkway { position: absolute; background: #a3938b; opacity: 0.3; z-index: 1; }
+.mfp-canvas-scaler .main-path { top: 80px; left: 320px; width: 40px; height: 975px; }
+.mfp-canvas-scaler .diagonal-path {
+  top: 510px; left: 360px; width: 530px; height: 40px;
+  transform: rotate(30deg); transform-origin: top left;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 23px 100%);
+}
+
+.mfp-canvas-scaler .tbl-group {
+  position: absolute; width: 68px; height: 68px; z-index: 2;
+  cursor: pointer; transition: transform 0.2s;
+}
+.mfp-canvas-scaler .tbl-group .tbl-circle {
+  width: 100%; height: 100%; border-radius: 50%;
+  background: var(--burgundy-light); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: bold; border: 2px solid #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.mfp-canvas-scaler .tbl-group.highlight .tbl-circle {
+  background: var(--burgundy-dark);
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(128,0,32,0.85);
+  transform: scale(1.15);
+}
+.mini-floorplan .mfp-click {
+  text-align: center; margin-top: 0.75rem;
+  font-size: 0.85rem; color: var(--burgundy); font-style: italic; cursor: pointer;
+}
+
+/* ── Animations ── */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Footer ── */
+footer{
+  text-align:center;padding:1.5rem;
+  color:var(--ink-muted);font-size:.8rem;font-style:italic;
+  letter-spacing:.03em;opacity:.6
+}
+
+/* ══════════════════════════════════════════
+   MOBILE — all viewports
+   ══════════════════════════════════════════ */
+@media(max-width:480px){
+  header{padding:1.25rem .85rem 1rem}
+  header h1{font-size:1.4rem}
+  header .subtitle{font-size:.82rem}
+  header .couple{font-size:.92rem}
+  .lang-btn{font-size:.75rem;padding:4px 10px}
+  .venue-banner{padding:.5rem .75rem}
+  .venue-line:first-child{font-size:.95rem}
+  .venue-line{font-size:.85rem}
+  .countdown-bar{padding:.4rem .75rem}
+  .countdown-bar .cd-label{font-size:.8rem}
+  .countdown-bar .cd-digits{font-size:.9rem}
+  .search-section{padding:0 .85rem}
+  .container{padding:.75rem .85rem 2rem}
+  .guest-card{padding:.75rem .85rem}
+  .guest-card .guest-name{font-size:1rem}
+  .round-table{width:170px;height:170px}
+  .modal-header{padding:1.1rem 1.1rem 1rem}
+  .modal-body{padding:.85rem 1rem 1rem}
+  .modal{max-width:95vw}
+  .all-tables-header{padding:.55rem .85rem}
+  .all-tables-body{padding:.4rem .85rem .6rem}
+  .table-preview{padding:.65rem .85rem}
+  .modal-overlay{padding:.5rem;align-items:flex-start;padding-top:1rem}
+  .modal{animation:slideUpMobile .3s ease}
+  .round-table .table-label .tile-name{font-size:1.1rem}
+  .round-table .table-label .tile-cap{font-size:.8rem}
+  .mini-floorplan .mfp-container{height:110px}
+  .mfp-dot{width:14px;height:14px}
+  .mfp-dot.vip-dot,.mfp-dot.highlight.vip-dot{width:16px;height:16px}
+  .mfp-row-inner{gap:5px}
+}
+
+@media(max-width:380px){
+  .round-table{width:150px;height:150px}
+  header h1{font-size:1.2rem}
+  .guest-card .guest-name{font-size:.92rem}
+  .guest-card .table-badge{font-size:.75rem;padding:.2rem .5rem}
+}
+
+@keyframes slideUpMobile{
+  from{opacity:0;transform:translateY(10px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="header-top">
+    <div></div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="my" onclick="setLang('my')">MY</button>
+    </div>
+  </div>
+  <h1 id="headTitle">Find Your Seat</h1>
+  <div class="subtitle" id="headSub">— Seating Chart —</div>
+  <div class="couple">Haikal &amp; Najwa</div>
+  <div class="guest-count" id="guestCount">300 guests . 50 tables</div>
+</header>
+
+<!-- ═══ VENUE ═══ -->
+<div class="venue-banner">
+  <div class="venue-line"><a href="https://www.google.com/maps/search/?api=1&query=JEN+Singapore+Tanglin+by+Shangri-La+1A+Cuscaden+Road" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">📍 Villa Rimba Flora</a></div>
+  <div class="venue-line"><a href="https://www.google.com/maps/search/?api=1&query=1A+Cuscaden+Road+Singapore+249716" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">🗺️ Gombak, Selangor</a></div>
+</div>
+
+<div class="search-section">
+  <div class="search-wrapper">
+    <span class="icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search by name…" autocomplete="off">
+    <button class="clear-btn" id="clearBtn">✕</button>
+  </div>
+</div>
+
+<div class="container" id="appContainer">
+  <!-- ═══ View All Tables button ═══ -->
+  <div class="view-all-btn-wrap">
+    <button class="view-all-btn" id="viewAllBtn" onclick="toggleAllTables()">📋 View All Tables</button>
+  </div>
+
+  <!-- ═══ All Tables view ═══ -->
+  <div class="all-tables-view" id="allTablesView">
+    <div class="all-tables-list" id="allTablesList"></div>
+  </div>
+
+  <!-- ═══ Countdown ═══ -->
+  <div class="countdown-bar">
+    <div class="cd-label" id="cdLabel">Counting down to the big day…</div>
+    <div class="cd-digits" id="cdDigits">
+      <span class="cd-num" id="cdDays">--</span><span class="cd-sep">d</span>
+      <span class="cd-num" id="cdHours">--</span><span class="cd-sep">h</span>
+      <span class="cd-num" id="cdMins">--</span><span class="cd-sep">m</span>
+      <span class="cd-num" id="cdSecs">--</span><span class="cd-sep">s</span>
+    </div>
+  </div>
+
+  <!-- ═══ Floor Plan link ═══ -->
+  <div class="view-all-btn-wrap">
+    <a href="floorplan.html" class="view-all-btn" style="text-decoration:none;display:inline-block" id="viewFloorPlanBtn">🗺️ View Floor Plan</a>
+  </div>
+
+  <!-- ═══ Initial state ═══ -->
+  <div class="initial-state" id="initialState">
+    <div class="deco-icon">🌿</div>
+    <h2 id="initTitle">Find Your Table</h2>
+    <p id="initSub">Type a name above to locate your seat</p>
+  </div>
+
+  <div id="resultsArea"></div>
+  <div id="genericTip"></div>
+
+  <!-- ═══ Mini Floor Plan ═══ -->
+  <div id="miniFloorplan" class="mini-floorplan" style="display:none">
+  <div class="mfp-title" id="mfpTitle">📍 Your Table</div>
+  <div class="mfp-viewport" id="mfpViewport">
+    <div class="mfp-canvas-scaler" id="mfpScaler">
+      <div class="walkway main-path"></div>
+      <div class="walkway diagonal-path"></div>
+      <div class="venue-landmark stage">Stage</div>
+      <div class="venue-landmark main-table">Bridal<br>Table</div>
+      <div class="venue-landmark buffet-line">Buffet Line</div>
+      <div class="venue-landmark surau-tandas">Surau / Toilet</div>
+      <div class="venue-landmark lounge-area">Lounge Area</div>
+      <div class="venue-landmark pa-system">PA System</div>
+      <div class="venue-landmark entrance">Entrance</div>
+      <div id="mfpTablesLayer"></div>
+    </div>
+  </div>
+  <div class="mfp-click" onclick="window.open('floorplan.html','_blank')">
+    <span id="mfpClickText">Tap to enlarge →</span>
+  </div>
+</div>
+
+<!-- ═══ TABLE MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <button class="close-btn" id="modalClose">✕</button>
+      <h2 id="modalTitle">VIP</h2>
+      <div class="table-subtitle" id="modalSubtitle"></div>
+    </div>
+    <div class="modal-body">
+      <div class="table-visual">
+        <div class="round-table" id="roundTable">
+          <div class="table-label">
+            <div class="tile-name" id="tableTileName">VIP</div>
+            <div class="tile-cap" id="tableTileCap"></div>
+          </div>
+        </div>
+      </div>
+      <div class="table-guest-list" id="tableGuestList"></div>
+      <div class="table-count" id="tableCount"></div>
+    </div>
+  </div>
+</div>
+
+<footer><div>❤️ Haikal & Najwa 💍</div><div>Haikal &amp; Najwa</div></footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   CONFIG
+   ═══════════════════════════════════════════════════════ */
+
+// ★ SET YOUR WEDDING DATE HERE ★
+const WEDDING_DATE = new Date("2026-12-12T20:00:00+08:00");
+
+const VENUE = {
+  cn: "Villa Rimba Flora",
+  addr: "9381, Jln Gombak, Ulu Gombak, 53100, Selangor"
+};
+
+/* ═══════════════════════════════════════════════════════
+   GUEST DATA
+   ═══════════════════════════════════════════════════════ */
+
+// diet: "" (none) or "veg" (vegetarian → shows 🥗)
+  const guestData = [{name:"Bahrin Md Dom",table:"VIP 1",diet:""},{name:"Hazipah Saidon",table:"VIP 1",diet:""},{name:"Rabiatul Nabila",table:"VIP 1",diet:""},{name:"Muhammad Huzaifah",table:"VIP 1",diet:""},{name:"Rabiatul Nuha",table:"VIP 1",diet:""},{name:"Dato Rashidi Hasbullah",table:"VIP 1",diet:""},{name:"Enja Rudin",table:"VIP 1",diet:""},{name:"Ashiqul Islam Joshua bin Abdullah",table:"VIP 1",diet:""},{name:"Rodziah Saidon",table:"Table 1",diet:""},{name:"Abdul Halim Ismail",table:"Table 1",diet:""},{name:"Siti Hajar Abdul Halim",table:"Table 1",diet:""},{name:"Fikri Abdul Halim",table:"Table 1",diet:""},{name:"Siti Balqis Abdul Halim",table:"Table 1",diet:""},{name:"Siti Aisyah Abdul Halim",table:"Table 1",diet:""},{name:"Hasif",table:"Table 1",diet:""},{name:"Sarihan Saidon",table:"Table 1",diet:""},{name:"Wan Salha Saidon",table:"Table 2",diet:""},{name:"Mohd Fazli",table:"Table 2",diet:""},{name:"Ahmad Darwiesh",table:"Table 2",diet:""},{name:"Posiah Mohd Isa",table:"Table 2",diet:""},{name:"Khaulah",table:"Table 2",diet:""},{name:"Alfi",table:"Table 2",diet:""},{name:"Khuzae",table:"Table 2",diet:""},{name:"Baharom Md Dom",table:"Table 3",diet:""},{name:"Norsiah",table:"Table 3",diet:""},{name:"Fifi",table:"Table 3",diet:""},{name:"Tia",table:"Table 3",diet:""},{name:"Chomil",table:"Table 3",diet:""},{name:"Nona Md Dom",table:"Table 4",diet:""},{name:"Norizan",table:"Table 4",diet:""},{name:"Qayyum",table:"Table 4",diet:""},{name:"Faizal",table:"Table 3",diet:""},{name:"Aina",table:"Table 3",diet:""},{name:"Sara",table:"Table 3",diet:""},{name:"Sabariah Md Dom",table:"Table 4",diet:""},{name:"Hamidah Md Dom",table:"Table 4",diet:""},{name:"Khamis Md Dom",table:"Table 5",diet:""},{name:"Fauziah",table:"Table 5",diet:""},{name:"Haikal",table:"Table 4",diet:""},{name:"Najla",table:"Table 5",diet:""},{name:"Afiq",table:"Table 5",diet:""},{name:"Sham",table:"Table 7",diet:""},{name:"Norhiaza",table:"Table 5",diet:""},{name:"Maimun Ramli",table:"Table 7",diet:""},{name:"Harid",table:"Table 7",diet:""},{name:"Sharifah Salmah",table:"Table 7",diet:""},{name:"Umi",table:"Table 7",diet:""},{name:"Maisarah",table:"Table 7",diet:""},{name:"Haliza Samat",table:"Table 6",diet:""},{name:"Khatijah",table:"Table 7",diet:""},{name:"Iddin",table:"Table 6",diet:""},{name:"Faizul",table:"Table 6",diet:""},{name:"Jitt",table:"Table 6",diet:""},{name:"Kumar",table:"Table 6",diet:""},{name:"Pritam",table:"Table 6",diet:""},{name:"Rizawati",table:"Table 6",diet:""},{name:"Kamal",table:"Table 6",diet:""},{name:"Mohd Nizam Md Dom",table:"Table 4",diet:""},{name:"Rohaida Kahar",table:"Table 5",diet:""},{name:"Asliah",table:"Table 5",diet:""},{name:"Ayuzafina",table:"Table 5",diet:""},{name:"Kamarudin Md Dom",table:"Table 4",diet:""},{name:"Izzat Fitri",table:"Table 12",diet:""},{name:"Nor Ayuni Jasmi",table:"Table 12",diet:""},{name:"Afifah",table:"Table 12",diet:""},{name:"Hasnina",table:"Table 12",diet:""},{name:"Shariful Nasir",table:"Table 12",diet:""},{name:"Hanani Dzamrah",table:"Table 13",diet:""},{name:"Khoirol Anam",table:"Table 13",diet:""},{name:"Zailin Asri",table:"Table 13",diet:""},{name:"Syazana Athirah",table:"Table 13",diet:""},{name:"Amsyar",table:"Table 13",diet:""},{name:"Intan Azrina",table:"Table 13",diet:""},{name:"Arif",table:"Table 13",diet:""},{name:"Hanani Mutalib",table:"Table 13",diet:""},{name:"Farah",table:"Table 9",diet:""},{name:"Nabilah",table:"Table 9",diet:""},{name:"Baem",table:"Table 9",diet:""},{name:"Hazrahaf",table:"Table 9",diet:""},{name:"Razin",table:"Table 9",diet:""},{name:"Syafiqah Sobri",table:"Table 8",diet:""},{name:"Danial",table:"Table 8",diet:""},{name:"Sarah",table:"Table 8",diet:""},{name:"Afiq",table:"Table 8",diet:""},{name:"Sabrina",table:"Table 9",diet:""},{name:"Alya",table:"Table 8",diet:""},{name:"Fahmi",table:"Table 10",diet:""},{name:"Khai",table:"Table 10",diet:""},{name:"Ameer",table:"Table 10",diet:""},{name:"Adleena",table:"Table 10",diet:""},{name:"Iezhar",table:"Table 8",diet:""},{name:"Wardah",table:"Table 8",diet:""},{name:"Afdhal",table:"Table 8",diet:""},{name:"Syed",table:"Table 10",diet:""},{name:"Sarah Syazwani",table:"Table 10",diet:""},{name:"Umi",table:"Table 10",diet:""},{name:"Aiman",table:"Table 10",diet:""},{name:"Khairunnisah",table:"Table 12",diet:""},{name:"Affizah",table:"Table 12",diet:""},{name:"Aisyah",table:"Table 9",diet:""},{name:"Izzah",table:"Table 11",diet:""},{name:"Hafiz",table:"Table 11",diet:""},{name:"Aziz",table:"Table 11",diet:""},{name:"Nadrah Mohd Adros",table:"VIP 2",diet:""},{name:"Weldan Che Chob",table:"VIP 2",diet:""},{name:"Akeef Weldan",table:"VIP 2",diet:""},{name:"Syafiqah",table:"VIP 2",diet:""},{name:"Naqib Weldan",table:"VIP 2",diet:""},{name:"Ika",table:"VIP 2",diet:""},{name:"Nabil Weldan",table:"VIP 2",diet:""},{name:"Narina Mohd Adros",table:"VIP 2",diet:""},{name:"Ezzati",table:"Table 11",diet:""},{name:"Hana",table:"Table 11",diet:""},{name:"Hazirah",table:"Table 11",diet:""},{name:"Zul",table:"Table 11",diet:""},{name:"John",table:"Table 11",diet:""}];
+
+/* ── Table definitions ── */
+const tableOrder = ["VIP 1","VIP 2","Table 1","Table 2","Table 3","Table 4","Table 5","Table 6","Table 7","Table 8","Table 9","Table 10","Table 11","Table 12","Table 13"];
+
+/* ── Floor plan layout: [row1, row2] — maps table name to position ── */
+const designerTables = [
+  /* Left Wing */
+  { name: 'VIP 1', x: 60, y: 235 }, { name: 'VIP 2', x: 180, y: 235 },
+  { name: 'Table 8', x: 60, y: 350 }, { name: 'Table 9', x: 180, y: 350 },
+  { name: 'Table 10', x: 60, y: 465 }, { name: 'Table 11', x: 180, y: 465 },
+  { name: 'Table 21', x: 60, y: 600 }, { name: 'Table 22', x: 180, y: 600 },
+  { name: 'Table 23', x: 60, y: 715 }, { name: 'Table 24', x: 180, y: 715 },
+  { name: 'Table 25', x: 60, y: 830 }, { name: 'Table 26', x: 180, y: 830 },
+  { name: 'Table 27', x: 60, y: 945 }, { name: 'Table 28', x: 180, y: 945 },
+  /* Right Wing Lower */
+  { name: 'Table 16', x: 400, y: 620 },
+  { name: 'Table 17', x: 400, y: 735 }, { name: 'Table 18', x: 515, y: 735 },
+  { name: 'Table 19', x: 400, y: 850 }, { name: 'Table 20', x: 515, y: 850 },
+  /* Right Wing Upper */
+  { name: 'Table 2', x: 400, y: 235 }, { name: 'Table 3', x: 515, y: 235 },
+  { name: 'Table 5', x: 400, y: 350 }, { name: 'Table 6', x: 515, y: 350 },
+  { name: 'Table 12', x: 400, y: 465 }, { name: 'Table 13', x: 515, y: 465 },
+  { name: 'Table 1', x: 630, y: 120 }, { name: 'Table 4', x: 630, y: 235 },
+  { name: 'Table 7', x: 630, y: 350 }, { name: 'Table 14', x: 630, y: 465 },
+  { name: 'Table 15', x: 630, y: 580 }
+];
+
+function resizeMiniFloorplan() {
+  const vp = document.getElementById('mfpViewport');
+  const scaler = document.getElementById('mfpScaler');
+  if (!vp || !scaler) return;
+  const scale = vp.clientWidth / 800;
+  scaler.style.transform = `scale(${scale})`;
+}
+
+window.addEventListener('resize', resizeMiniFloorplan);
+
+/* ── Table display names ── */
+const tableLabel = {
+  "VIP 1":  "VIP 1", "VIP 2":  "VIP 2",
+  "Table 1": "Table 1","Table 5": "Table 5","Table 9": "Table 9", "Table 17": "Table 13",
+  "Table 2": "Table 2","Table 6": "Table 6","Table 10": "Table 10", "Table 18": "Table 14",
+  "Table 3": "Table 3","Table 7": "Table 7","Table 11": "Table 11",
+  "Table 4": "Table 4","Table 8": "Table 8","Table 12": "Table 12"
+};
+
+/* ═══════════════════════════════════════════════════════
+   I18N — translations
+   ═══════════════════════════════════════════════════════ */
+
+let currentLang = 'en';  // default: English
+
+const i18n = {
+  'headTitle':        { en: 'Find Your Seat',           my: 'Cari Tempat Duduk Anda' },
+  'headSub':          { en: '— Seating Chart —',        my: '— Pelan Susunan Tempat Duduk —' },
+  'searchPlaceholder':{ en: 'Search by name…',          my: 'Cari mengikut nama…' },
+  'initTitle':        { en: 'Find Your Table',          my: 'Cari Meja Anda' },
+  'initSub':          { en: 'Type a name above to locate your seat', my: 'Taip nama di atas untuk mencari tempat duduk anda' },
+  'guestCount':       { en: ` guests · `,               my: ` tetamu · ` },
+  'tables':           { en: ' tables',                   my: ' meja' },
+  'guestSingular':    { en: ' guest',                    my: ' tetamu' },
+  'guestPlural':      { en: ' guests',                   my: ' tetamu' },
+  'seatSingular':     { en: ' seat',                     my: ' kerusi' },
+  'seatPlural':       { en: ' seats',                    my: ' kerusi' },
+  'atThisTable':      { en: ' at this table',            my: ' di meja ini' },
+  'viewAllBtn':       { en: '📋 View All Tables',       my: '📋 Lihat Semua Meja' },
+  'noResultsTitle':   { en: 'Name not found',            my: 'Nama tidak dijumpai' },
+  'noResultsMsg':     { en: "We couldn't find \"",       my: 'Kami tidak menemui "' },
+  'noResultsMsg2':    { en: '" in the guest list.',      my: '" dalam senarai tetamu' },
+  'tipCheck':         { en: 'Check the spelling',        my: 'Semak ejaan' },
+  'tipFirstName':     { en: 'Try just the first name or surname', my: 'Cuba taip nama pertama atau nama keluarga sahaja' },
+  'tipPlusOne':       { en: 'If the guest was invited as a "+1" or family member,', my: 'Jika tetamu dijemput sebagai "+1" atau ahli keluarga,' },
+  'tipPlusOne2':      { en: 'search for the main invitee\'s name instead', my: 'cuba cari nama jemputan utama' },
+  'tipAskWP':         { en: 'Ask a member of the wedding party for help', my: 'Minta bantuan daripada ahli jawatankuasa majlis' },
+  'genericTipTitle':  { en: 'Guest matching "',         my: 'Tetamu padanan "' },
+  'genericTipMid':    { en: '" may be listed under the ', my: '" mungkin disenaraikan di bawah' },
+  'genericTipStrong': { en: 'primary invitee\'s name',  my: 'nama jemputan utama' },
+  'genericTipSub':    { en: 'Try searching for the person they are accompanying or their family name.', my: 'Cuba cari nama orang yang diiringi atau nama keluarga mereka.' },
+  'cdLabel':          { en: 'Counting down to the big day…', my: 'Menghitung hari bahagia…' },
+  'cdPast':           { en: '✨ Married! 🎉',            my: '✨ Selamat Pengantin Baru!🎉' },
+  'previewSeeAll':    { en: 'See all guests at this table →', my: 'Lihat semua tetamu di meja ini →' },
+  'footer':           { en: '#HAIKALgetsaWAifu', my: '#HAIKALgetsaWAifu' },
+  'viewFloorPlan':    { en: '🗺️ View Floor Plan',      my: '🗺️ Lihat Pelan Lantai' },
+  'tapToEnlarge':     { en: 'Tap to enlarge →',        my: 'Ketik untuk besarkan →' },
+  'freeSeating':      { en: 'Free Seating - Without Seat Assignment',        my: 'Susunan Bebas - Meja Tanpa Penetapan' },
+  'venueLine':        { en: `${VENUE.addr} · ${VENUE.mrt}`, my: `${VENUE.addr} · ${VENUE.mrt}` },
+};
+
+function t(key) {
+  return i18n[key]?.[currentLang] ?? i18n[key]?.['en'] ?? key;
+}
+
+/* ═══════════════════════════════════════════════════════
+   LANGUAGE SWITCHER
+   ═══════════════════════════════════════════════════════ */
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.documentElement.lang = lang;
+
+  // Update static elements
+  document.getElementById('headTitle').textContent = t('headTitle');
+  document.getElementById('headSub').textContent = t('headSub');
+  document.getElementById('searchInput').placeholder = t('searchPlaceholder');
+  document.getElementById('initTitle').textContent = t('initTitle');
+  document.getElementById('initSub').textContent = t('initSub');
+  document.getElementById('viewAllBtn').textContent = t('viewAllBtn');
+  document.getElementById('cdLabel').textContent = t('cdLabel');
+  document.getElementById('viewFloorPlanBtn').textContent = t('viewFloorPlan');
+  document.getElementById('FreeSeating').textContent = t('FreeSeating');
+  const mfpText = document.getElementById('mfpClickText');
+  if (mfpText) mfpText.textContent = t('tapToEnlarge');
+
+  // Update guest count
+  updateGuestCount();
+
+  // Update footer
+  document.querySelector('footer').innerHTML = t('footer');
+
+  // Refresh current view
+  refreshView();
+}
+
+/* ═══════════════════════════════════════════════════════
+   COUNTDOWN
+   ═══════════════════════════════════════════════════════ */
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = WEDDING_DATE - now;
+
+  if (diff <= 0) {
+    document.getElementById('cdLabel').textContent = t('cdPast');
+    document.getElementById('cdDays').textContent = '🎉';
+    document.getElementById('cdHours').textContent = '';
+    document.getElementById('cdMins').textContent = '';
+    document.getElementById('cdSecs').textContent = '';
+    return;
+  }
+
+  const totalSec = Math.floor(diff / 1000);
+  const d = Math.floor(totalSec / 86400);
+  const h = Math.floor((totalSec % 86400) / 3600);
+  const m = Math.floor((totalSec % 3600) / 60);
+  const s = totalSec % 60;
+
+  document.getElementById('cdDays').textContent = String(d).padStart(2,'0');
+  document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cdMins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cdSecs').textContent = String(s).padStart(2,'0');
+}
+
+/* ═══════════════════════════════════════════════════════
+   GENERIC / RELATIONAL TERMS
+   ═══════════════════════════════════════════════════════ */
+
+const genericTerms = ["+1","+ 1","children","child","mother","mother's","wife","wife's",
+  "mum","dad","grandma","grandfather","grandmother","brother","sister",
+  "husband","family","mil","father","father's","sister in law","sister-in-law"];
+
+function isGenericSearch(q) {
+  const lower = q.trim().toLowerCase();
+  if (!lower) return false;
+  return genericTerms.some(t => lower === t);
+}
+
+/* ═══════════════════════════════════════════════════════
+   UI LOGIC
+   ═══════════════════════════════════════════════════════ */
+
+const searchInput  = document.getElementById('searchInput');
+const clearBtn     = document.getElementById('clearBtn');
+const resultsArea  = document.getElementById('resultsArea');
+const genericTip   = document.getElementById('genericTip');
+const initialState = document.getElementById('initialState');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalClose   = document.getElementById('modalClose');
+
+/* ── Search ── */
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim();
+  closeAllTablesView();
+  clearBtn.classList.toggle('visible', q.length > 0);
+
+  if (q.length === 0) {
+    showInitial();
+    return;
+  }
+
+  if (isGenericSearch(q)) {
+    showGenericTip(q);
+    return;
+  }
+
+  clearGenericTip();
+  performSearch(q);
+});
+
+clearBtn.addEventListener('click', function() {
+  searchInput.value = '';
+  clearBtn.classList.remove('visible');
+  clearGenericTip();
+  closeAllTablesView();
+  showInitial();
+  searchInput.focus();
+});
+
+function performSearch(query) {
+  const lower = query.toLowerCase();
+  const matches = guestData.filter(g =>
+    g.name.toLowerCase().includes(lower)
+  );
+
+  if (matches.length === 0) {
+    showNoResults(query);
+  } else {
+    showResults(matches, query);
+  }
+}
+
+/* ── Refresh current view after language switch ── */
+function refreshView() {
+  const q = searchInput.value.trim();
+  if (q.length === 0) return;
+  if (isGenericSearch(q)) { showGenericTip(q); return; }
+  clearGenericTip();
+  performSearch(q);
+}
+
+/* ── Generic term tooltip ── */
+function showGenericTip(term) {
+  initialState.style.display = 'none';
+  resultsArea.innerHTML = '';
+  genericTip.innerHTML = `
+    <div class="generic-tip">
+      <div class="tip-icon">🔍</div>
+      <p>${t('genericTipTitle')}<strong>${escapeHtml(term)}</strong>${t('genericTipMid')}<strong>${t('genericTipStrong')}</strong>.</p>
+      <p class="tip-sub">${t('genericTipSub')}</p>
+    </div>
+  `;
+}
+
+function clearGenericTip() {
+  genericTip.innerHTML = '';
+}
+
+/* ── States ── */
+function showInitial() {
+  initialState.style.display = 'block';
+  resultsArea.innerHTML = '';
+  clearGenericTip();
+  document.getElementById('miniFloorplan').style.display = 'none';
+}
+
+function showNoResults(query) {
+  initialState.style.display = 'none';
+  const tipsMy = currentLang === 'my' ? `
+    🔹 Semak ejaan<br>
+    🔹 Cuba taip nama pertama atau nama keluarga sahaja<br>
+    🔹 Jika tetamu dijemput sebagai "+1" atau ahli keluarga,<br>
+    &nbsp;&nbsp;&nbsp;cuba cari nama jemputan utama<br>
+    🔹 Minta bantuan daripada ahli jawatankuasa majlis
+  ` : `
+    🔹 Check the spelling<br>
+    🔹 Try just the first name or surname<br>
+    🔹 If the guest was invited as a "+1" or family member,<br>
+    &nbsp;&nbsp;&nbsp;search for the main invitee's name instead<br>
+    🔹 Ask a member of the wedding party for help
+  `;
+  resultsArea.innerHTML = `
+    <div class="no-results">
+      <div class="sad-icon">🌿</div>
+      <h3>${t('noResultsTitle')}</h3>
+      <p>${t('noResultsMsg')}<strong>${escapeHtml(query)}</strong>${t('noResultsMsg2')}</p>
+      <div class="tips">${tipsMy}</div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SEARCH RESULTS — with inline table preview
+   ═══════════════════════════════════════════════════════ */
+
+function showResults(matches, query) {
+  initialState.style.display = 'none';
+
+  // Collect unique table names from matches
+  const tables = [...new Set(matches.map(g => g.table))].sort(
+    (a,b) => tableOrder.indexOf(a) - tableOrder.indexOf(b)
+  );
+
+  // Build guest cards (existing style)
+  let cardsHtml = `<div class="guest-list">${
+    matches.map(g =>
+      `<div class="guest-card" onclick="openTable('${g.table}')">
+        <span class="guest-name">${highlight(g.name, query)}${g.diet === 'veg' ? '&nbsp;🥗' : ''}</span>
+        <span class="table-badge">${tableLabel[g.table] || g.table}</span>
+      </div>`
+    ).join('')
+  }</div>`;
+
+  // Build inline table previews — show ALL guests at each matched table
+  const previews = tables.map(tbl => {
+    const guests = guestData.filter(g => g.table === tbl);
+    return `<div class="table-preview" onclick="openTable('${tbl}')">
+      <div class="tp-title">${tableLabel[tbl] || tbl} <span style="font-style:italic;font-size:.82rem;color:var(--ink-muted);font-weight:400">(${guests.length} ${guests.length > 1 ? t('guestPlural') : t('guestSingular')})</span></div>
+      ${guests.map((g,i) =>
+        `<div class="tp-guest">
+          <span class="tp-num">${i+1}</span>
+          <span>${escapeHtml(g.name)}${g.diet === 'veg' ? ' 🥗' : ''}</span>
+        </div>`
+      ).join('')}
+      <div class="tp-click">${t('previewSeeAll')}</div>
+    </div>`;
+  }).join('');
+
+  resultsArea.innerHTML = cardsHtml + previews;
+
+  // Show mini floor plan highlighting the first matched table
+  if (tables.length > 0) {
+    renderMiniFloorplan(tables[0]);
+  }
+}
+
+/* ── Mini floor plan ── */
+/* ── Render 2D Layout & Highlight Matched Table ── */
+function renderMiniFloorplan(tableName) {
+  const container = document.getElementById('miniFloorplan');
+  const layer = document.getElementById('mfpTablesLayer');
+  container.style.display = 'block';
+
+  document.getElementById('mfpTitle').textContent = `📍 Your Table — ${tableLabel[tableName] || tableName}`;
+
+  // Match variants like "VIP" to "VIP 1" or exact strings
+  const targetNorm = tableName.trim().toLowerCase();
+
+  layer.innerHTML = designerTables.map(t => {
+    const isTarget = t.name.toLowerCase() === targetNorm ||
+                     (targetNorm === 'vip' && t.name.startsWith('VIP'));
+    return `
+      <div class="tbl-group ${isTarget ? 'highlight' : ''}" 
+           style="left:${t.x}px; top:${t.y}px;" 
+           onclick="openTable('${t.name}')"> <!-- ✅ Pass t.name here instead of tableName -->
+        <div class="tbl-circle">${t.name}</div>
+      </div>
+    `;
+  }).join('');
+
+  resizeMiniFloorplan();
+
+  const enlargeLink = document.querySelector('.mfp-click');
+  if (enlargeLink) {
+    enlargeLink.setAttribute('onclick', `window.open('floorplan.html?table=${encodeURIComponent(tableName)}','_blank')`);
+  }
+}
+
+/* ── Helpers ── */
+function highlight(text, query) {
+  if (!text || !query) return escapeHtml(text||'');
+  const escaped = escapeHtml(text);
+  const q = escapeHtml(query);
+  const regex = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');
+  return escaped.replace(regex,'<mark style="background:var(--champagne);color:var(--ink);padding:0 2px;border-radius:2px;">$1</mark>');
+}
+
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function updateGuestCount() {
+  const suffix = t('tables');
+  const gs = t('guestCount');
+  document.getElementById('guestCount').textContent =
+    `${guestData.length}${gs}${tableOrder.length}${suffix}`;
+}
+
+/* ═══════════════════════════════════════════════════════
+   VIEW ALL TABLES
+   ═══════════════════════════════════════════════════════ */
+
+let allTablesOpen = false;
+
+function toggleAllTables() {
+  const view = document.getElementById('allTablesView');
+  const btn = document.getElementById('viewAllBtn');
+  allTablesOpen = !allTablesOpen;
+  view.classList.toggle('open', allTablesOpen);
+  btn.textContent = allTablesOpen ? '✕ ' + t('viewAllBtn') : t('viewAllBtn');
+
+  // Close search results when opening all tables
+  if (allTablesOpen) {
+    searchInput.value = '';
+    clearBtn.classList.remove('visible');
+    showInitial();
+  }
+
+  if (allTablesOpen && !view.querySelector('.all-tables-group')) {
+    renderAllTables();
+  }
+}
+
+function closeAllTablesView() {
+  allTablesOpen = false;
+  document.getElementById('allTablesView').classList.remove('open');
+  document.getElementById('viewAllBtn').textContent = t('viewAllBtn');
+}
+
+function renderAllTables() {
+  const list = document.getElementById('allTablesList');
+  list.innerHTML = tableOrder.map(t => {
+    const guests = guestData.filter(g => g.table === t);
+    return `<div class="all-tables-group">
+      <div class="all-tables-header" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        <span class="at-label">${tableLabel[t] || t}</span>
+        <span style="display:flex;align-items:center;gap:.5rem">
+          <span class="at-count">${guests.length} ${guests.length > 1 ? (currentLang === 'my' ? 'kerusi' : 'seats') : (currentLang === 'my' ? 'kerusi' : 'seat')}</span>
+          <span class="at-arrow">▾</span>
+        </span>
+      </div>
+      <div class="all-tables-body">
+        ${guests.map((g,i) =>
+          `<div class="all-tables-guest" onclick="openTable('${t}')">
+            <span class="at-num">${i+1}</span>
+            <span>${escapeHtml(g.name)}${g.diet === 'veg' ? ' 🥗' : ''}</span>
+          </div>`
+        ).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   TABLE VIEW (modal)
+   ═══════════════════════════════════════════════════════ */
+
+function openTable(tableName) {
+  const target = tableName.toLowerCase();
+
+  // Match exact name, or if clicking VIP 1/VIP 2, also include guests with table: "VIP"
+  const guests = guestData.filter(g => {
+    const gTbl = g.table.toLowerCase();
+    return gTbl === target || (target.startsWith('vip') && gTbl === 'vip');
+  });
+
+  const cap = guests.length;
+
+  document.getElementById('modalTitle').textContent = tableLabel[tableName] || tableName;
+  document.getElementById('modalSubtitle').textContent = `${guests.length}${guests.length > 1 ? t('guestPlural') : t('guestSingular')}`;
+  document.getElementById('tableTileName').textContent = tableName;
+  document.getElementById('tableTileCap').textContent = `${guests.length}${guests.length > 1 ? t('seatPlural') : t('seatSingular')}`;
+
+  const tableEl = document.getElementById('roundTable');
+  tableEl.querySelectorAll('.seat-marker').forEach(el => el.remove());
+
+  const tableW = tableEl.offsetWidth || 220;
+  const tableH = tableEl.offsetHeight || 220;
+  const cx = tableW / 2;
+  const cy = tableH / 2;
+  const markerRadius = Math.min(tableW, tableH) * 0.38;
+  const seatCount = Math.max(cap, 8);
+
+  // Remove px calculations and simply set a CSS rotation angle
+  for (let i = 0; i < seatCount; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'seat-marker' + (i < cap ? ' filled' : '');
+    // Set rotation variable for CSS
+    dot.style.setProperty('--angle', `${i * (360 / seatCount)}deg`);
+    tableEl.appendChild(dot);
+  }
+
+  if (guests.length === 0) {
+    document.getElementById('tableGuestList').innerHTML =
+      `<div style="text-align:center;color:var(--ink-muted);font-style:italic;padding:1rem 0;">${t('Free Seating - Without Seat Assignment')}</div>`;
+  } else {
+    document.getElementById('tableGuestList').innerHTML = guests.map((g, i) =>
+      `<div class="table-guest-item">
+        <span class="seat-num">${i + 1}</span>
+        <span class="guest-name">${escapeHtml(g.name)}${g.diet === 'veg' ? ' 🥗' : ''}</span>
+      </div>`
+    ).join('');
+  }
+
+  // Render guest list OR the translated Free Seating message
+  const guestListEl = document.getElementById('tableGuestList');
+  if (cap === 0) {
+    guestListEl.innerHTML = `
+      <div style="text-align:center;color:rgba(255,255,255,0.7);font-style:italic;padding:1.5rem 0.5rem;font-size:0.95rem;">
+        ${t('freeSeating')}
+      </div>
+    `;
+  } else {
+    guestListEl.innerHTML = guests.map((g, i) => `
+      <div class="table-guest-item">
+        <span class="seat-num">${i + 1}</span>
+        <span class="guest-name">${escapeHtml(g.name)}${g.diet === 'veg' ? ' 🥗' : ''}</span>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('tableCount').textContent = `${guests.length}${guests.length > 1 ? t('guestPlural') : t('guestSingular')}${t('atThisTable')}`;
+
+  modalOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(() => {
+    const modal = document.querySelector('.modal');
+    if (modal) modal.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 100);
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════════ */
+
+// Update guest count
+updateGuestCount();
+
+// Start countdown
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Set default language
+setLang('en');
+
+showInitial();
+</script>
+</body>
+</html>
